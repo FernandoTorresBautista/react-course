@@ -1,7 +1,7 @@
 import { getUser, getUsuarioActivo } from "../../src/base-pruebas/05-funciones";
 
 describe('Pruebas en 05-funciones', () => {
-    test('getUser return and object', () => {
+    test('getUser return an object', () => {
         
         const testUser = {
             uid: 'ABC123',
@@ -15,7 +15,7 @@ describe('Pruebas en 05-funciones', () => {
                 
     });
 
-    test('getUsuarioActivo return and object', () => { 
+    test('getUsuarioActivo return an object', () => { 
 
         const name = "Fernando";
         const resultGetUsuarioActivo = getUsuarioActivo(name)
