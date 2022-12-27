@@ -6,8 +6,8 @@ describe('testing on <AddCategory />', () => {
     const inputValue = 'Saitama';
 
     test('change the vaue of the text box', () => {
-        
-        render( <AddCategory onNewCategorie={ () => { } } /> );
+        const onNewCategory = jest.fn();
+        render( <AddCategory onNewCategorie={ onNewCategory } /> );
         const input = screen.getByRole('textbox')
 
         fireEvent.input( input, {target: {value:inputValue} } );
@@ -18,7 +18,8 @@ describe('testing on <AddCategory />', () => {
     });
 
     test('should call onNewCategory if the input is not empty', () => {
-        render( <AddCategory onNewCategorie={ () => { } } /> );
+        const onNewCategory = jest.fn();
+        render( <AddCategory onNewCategorie={ onNewCategory } /> );
 
         const input = screen.getByRole('textbox');
         const form = screen.getByRole('form');
@@ -32,6 +33,26 @@ describe('testing on <AddCategory />', () => {
         // screen.debug();
 
         expect( input.value ).toBe('');
+
+        expect( onNewCategory ).toHaveBeenCalled();
+        expect( onNewCategory ).toHaveBeenCalledTimes(1);
+        expect( onNewCategory ).toHaveBeenCalledWith(inputValue);
+
+    });
+
+    test('shouldn\'t call the onNewCategory if the input is empty', () => {
+        const onNewCategory = jest.fn();
+        render( <AddCategory onNewCategorie={ onNewCategory } /> );
+
+        const input = screen.getByRole('textbox');
+        const form = screen.getByRole('form');
+
+        fireEvent.input( input, {target: {value:""} } );
+        fireEvent.submit( form );
+        
+        expect( input.value ).toBe('');
+
+        expect( onNewCategory ).toHaveBeenCalledTimes(0);
 
     });
 
