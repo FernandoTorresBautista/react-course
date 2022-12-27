@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PropTypes } from "prop-types";
 
 export const AddCategory = ( {onNewCategorie} ) => {
 
@@ -25,4 +26,8 @@ export const AddCategory = ( {onNewCategorie} ) => {
             />
         </form>
     )
+}
+
+AddCategory.propTypes = {
+    onNewCategorie: PropTypes.func.isRequired,
 }

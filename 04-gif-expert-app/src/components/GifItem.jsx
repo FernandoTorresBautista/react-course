@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 
 export const GifItem = ({ id, title, url }) => {
 
@@ -8,3 +9,15 @@ export const GifItem = ({ id, title, url }) => {
         </div>
     )
 }
+
+GifItem.propTypes = {
+    // id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+}
+
+// GifItem.defaultProps = {
+//     id: 0,
+//     title: 'No hay título',
+//     url: "No existe url",
+// }
