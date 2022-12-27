@@ -17,7 +17,7 @@ export const AddCategory = ( {onNewCategorie} ) => {
     }
 
     return (
-        <form onSubmit={(event) => onSubmit(event)}>
+        <form onSubmit={(event) => onSubmit(event)} aria-label="form">
             <input
                 type="text"
                 placeholder="search gifs"
