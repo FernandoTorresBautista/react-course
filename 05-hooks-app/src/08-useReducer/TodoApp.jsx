@@ -33,6 +33,14 @@ export const TodoApp = () => {
         }
         dispatchTodo(addTodoAction);
     }
+    
+    const hadleDelTodo = (todoId) => {
+        const delTodoAction = {
+            type: '[TODO] Remove Todo',
+            payload: todoId,
+        }
+        dispatchTodo(delTodoAction);
+    }
 
     return (
         <>
@@ -42,14 +50,19 @@ export const TodoApp = () => {
             <div className="row">
                 <div className="col-7">
                     {/* TodoList */}
-                    <TodoList todos={todos}/>
+                    <TodoList 
+                        todos={todos} 
+                        onDeleteTodo={hadleDelTodo} 
+                    />
                 </div>
 
                 <div className="col-5">
                     <h4>Agregar TODO</h4>
                     <hr />
                     {/* TodoAdd */}
-                    <TodoAdd onNewTodo={hadleNewTodo} />
+                    <TodoAdd 
+                        onNewTodo={hadleNewTodo} 
+                    />
                 </div>
 
             </div>
