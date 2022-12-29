@@ -1,58 +1,21 @@
 import { useEffect } from "react";
-import { useReducer } from "react"
+import { useTodos } from "../hooks/useTodos";
 import { TodoAdd } from "./TodoAdd";
 import { TodoList } from "./TodoList";
-import { todoReducer } from "./todoReducer"
-
-const initialState = [
-    // {
-    //     id: new Date().getTime(),
-    //     description: 'Recolectar la piedra del alma',
-    //     done: false,
-    // }
-]
-
-// inicizliza los valores si estan en el local storage
-const init = () => {
-    return JSON.parse(localStorage.getItem('todos')) || [];
-}
 
 export const TodoApp = () => {
 
-    const [todos, dispatchTodo] = useReducer(todoReducer, initialState, init);
+    // useTodo
+    const {todos, todosCount, pendingTodosCount, handleNewTodo, handleDelTodo, handleToggleTodo} = useTodos();
 
     //disparar un efecto secundario - useEffect
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos))
-    }, [todos])    
-
-    const hadleNewTodo = (todo) => {
-        const addTodoAction = {
-            type: '[TODO] Add Todo',
-            payload: todo,
-        }
-        dispatchTodo(addTodoAction);
-    }
-    
-    const hadleDelTodo = (todoId) => {
-        const delTodoAction = {
-            type: '[TODO] Remove Todo',
-            payload: todoId,
-        }
-        dispatchTodo(delTodoAction);
-    }
-
-    const onToggleTodo = (todoId) => {
-        const toggleTodoAction = {
-            type: '[TODO] Toggle Todo',
-            payload: todoId,
-        }
-        dispatchTodo(toggleTodoAction);
-    }
+    }, [todos])
 
     return (
         <>
-            <h1>TodoApp: 10, <small>Pendientes: 2</small></h1>
+            <h1>TodoApp: {todosCount}, <small>Pendientes: {pendingTodosCount}</small></h1>
             <hr />
 
             <div className="row">
@@ -60,8 +23,8 @@ export const TodoApp = () => {
                     {/* TodoList */}
                     <TodoList 
                         todos={todos} 
-                        onDeleteTodo={hadleDelTodo} 
-                        onToggleTodo={onToggleTodo} 
+                        onDeleteTodo={handleDelTodo} 
+                        onToggleTodo={handleToggleTodo} 
                     />
                 </div>
 
@@ -70,7 +33,7 @@ export const TodoApp = () => {
                     <hr />
                     {/* TodoAdd */}
                     <TodoAdd 
-                        onNewTodo={hadleNewTodo} 
+                        onNewTodo={handleNewTodo} 
                     />
                 </div>
 
@@ -78,4 +41,3 @@ export const TodoApp = () => {
         </>
     )
 }
-
